@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'zh_CN',
+    'locale' => 'zh-CN',
 
     'faker_locale' => 'zh_CN',
 
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'zh_CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +165,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
