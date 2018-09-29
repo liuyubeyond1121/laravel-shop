@@ -88,27 +88,34 @@
                                     @else
                                         未支付
                                     @endif
-                                    <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
-                                    @if($order->ship_status === \App\Models\Order::SHIP_STATUS_DELIVERED)
-                                        <div class="receive-button">
-                                            <form method="post" action="{{ route('orders.received', [$order->id]) }}">
-                                                <!-- csrf token 不能忘 -->
-                                                {{ csrf_field() }}
-                                                <button type="button" id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                    <!-- 订单已支付，且退款状态是未退款时展示申请退款按钮 -->
-                                    @if($order->paid_at && $order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)
-                                        <div class="refund-button">
-                                            <button class="btn btn-sm btn-danger" id="btn-apply-refund">申请退款</button>
-                                        </div>
-                                    @endif
+
                                 </div>
                             </div>
+                            @if(isset($order->extra['refund_disagree_reason']))
+                                <div>
+                                    <span>拒绝退款理由：</span>
+                                    <div class="value">{{ $order->extra['refund_disagree_reason'] }}</div>
+                                </div>
+                            @endif
                             @if(!$order->paid_at && !$order->closed)
                                 <div class="payment-buttons">
                                     <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
+                                </div>
+                            @endif
+                             <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
+                            @if($order->ship_status === \App\Models\Order::SHIP_STATUS_DELIVERED)
+                                <div class="receive-button">
+                                    <form method="post" action="{{ route('orders.received', [$order->id]) }}">
+                                        <!-- csrf token 不能忘 -->
+                                        {{ csrf_field() }}
+                                        <button type="button" id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
+                                    </form>
+                                </div>
+                            @endif
+                            <!-- 订单已支付，且退款状态是未退款时展示申请退款按钮 -->
+                            @if($order->paid_at && $order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)
+                                <div class="refund-button">
+                                    <button class="btn btn-sm btn-danger" id="btn-apply-refund">申请退款</button>
                                 </div>
                             @endif
                         </div>
