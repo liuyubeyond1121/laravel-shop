@@ -16,6 +16,7 @@
         "laravel/ui": "^3.4",
         "overtrue/laravel-lang": "^5.0",
         "predis/predis": "^2.1",
+        "symfony/psr-http-message-bridge": "^2.2",
         "yansongda/pay": "^3.3@beta"
     },
     "require-dev": {
