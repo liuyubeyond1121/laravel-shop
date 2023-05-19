@@ -19,14 +19,16 @@
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.32.11",
     "sass-loader": "^11.0.1",
-    "vue": "^2.6.12",
+    "vue": "2.7.14",
     "vue-loader": "^15.9.8",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.7.14"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "china-area-data": "^5.0.1",
     "jquery": "^3.7.0",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "vuex": "^4.1.0"
   },
   "name": "laravel-shop",
   "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
