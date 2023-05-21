@@ -10,11 +10,11 @@ return [
             // 必填-应用私钥 字符串或路径
             'app_secret_cert' => env('ALIPAY_APP_SECRET_CERT'),
             // 必填-应用公钥证书 路径
-            'app_public_cert_path' => resource_path("cert/appPublicCert.crt"),
+            'app_public_cert_path' => resource_path("pay/alipay/appPublicCert.crt"),
             // 必填-支付宝公钥证书 路径
-            'alipay_public_cert_path' => resource_path('cert/alipayPublicCert.crt'),
+            'alipay_public_cert_path' => resource_path('pay/alipay/alipayPublicCert.crt'),
             // 必填-支付宝根证书 路径
-            'alipay_root_cert_path' => resource_path('cert/alipayRootCert.crt'),
+            'alipay_root_cert_path' => resource_path('pay/alipay/alipayRootCert.crt'),
             'return_url' => 'https://yansongda.cn/alipay/return',
             'notify_url' => 'https://yansongda.cn/alipay/notify',
             // 选填-第三方应用授权token
