@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// 在之前的路由后面配上中间件
+Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
 
 Auth::routes(['verify' => true]);
 
@@ -30,4 +31,5 @@ Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('pa
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
+Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
 
