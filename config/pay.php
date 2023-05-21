@@ -87,7 +87,7 @@ return [
     // optional，默认 warning；日志路径为：sys_get_temp_dir().'/logs/yansongda.pay.log'
     'logger' => [
         'enable' => true,
-        'file' => storage_path('logs/alipay.log'),
+        'file' => storage_path('logs/pay.log'),
         'level' => 'debug',
         'type' => 'single', // optional, 可选 daily.
         'max_file' => 30,

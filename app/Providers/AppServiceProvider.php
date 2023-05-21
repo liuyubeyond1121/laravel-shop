@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // 后续看是否可以把 这两者整合起来
         // 往服务容器中注入一个名为 alipay 的单例对象
         $this->app->singleton('alipay', function () {
             $config = config('pay');
@@ -27,17 +28,20 @@ class AppServiceProvider extends ServiceProvider
             } else {
                 $config['logger']['level'] = Logger::WARNING;
             }
+            $config['logger']['file'] = storage_path('logs/alipay.log');
             // 调用 Yansongda\Pay 来创建一个支付宝支付对象
             return Pay::alipay($config);
         });
 
         $this->app->singleton('wechat_pay', function () {
             $config = config('pay');
+            $config['wechat']['default']['notify_url'] = ngrok_url('payment.wechat.notify');
             if (app()->environment() !== 'production') {
                 $config['logger']['level'] = Logger::DEBUG;
             } else {
                 $config['logger']['level'] = Logger::WARNING;
             }
+            $config['logger']['file'] = storage_path('logs/wechat_pay.log');
             // 调用 Yansongda\Pay 来创建一个微信支付对象
             return Pay::wechat($config);
         });
