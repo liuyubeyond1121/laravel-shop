@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(UsersSeeder::class);
         $this->call(UserAddressesSeeder::class);
+        // 放在 ProductsSeeder 之前
+        $this->call(CategoriesSeeder::class);
         $this->call(ProductsSeeder::class);
         $this->call(CouponCodesSeeder::class);
         $this->call(OrdersSeeder::class);
