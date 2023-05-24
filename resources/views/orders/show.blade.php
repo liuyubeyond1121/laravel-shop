@@ -122,6 +122,12 @@
           <div class="payment-buttons">
             <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
             <button class="btn btn-sm btn-success" id='btn-wechat'>微信支付</button>
+            <!-- 分期支付按钮开始 -->
+            <!-- 仅当订单总金额大等于分期最低金额时才展示分期按钮 -->
+            @if ($order->total_amount >= config('app.min_installment_amount'))
+              <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#installment-modal" id='btn-installment'>分期付款</button>
+            @endif
+            <!-- 分期支付按钮结束 -->
           </div>
         @endif
       </div>
@@ -130,68 +136,122 @@
 </div>
 </div>
 </div>
+<!-- 分期弹框开始 -->
+<div class="modal fade" id="installment-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">选择分期期数</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped text-center">
+          <thead>
+          <tr>
+            <th class="text-center">期数</th>
+            <th class="text-center">费率</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach(config('app.installment_fee_rate') as $count => $rate)
+            <tr>
+              <td>{{ $count }}期</td>
+              <td>{{ $rate }}%</td>
+              <td>
+                <button class="btn btn-sm btn-primary btn-select-installment" data-count="{{ $count }}">选择</button>
+              </td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 分期弹框结束 -->
 @endsection
 @section('scriptsAfterJs')
 <script>
 $(document).ready(function() {
-// 微信支付按钮事件
-$('#btn-wechat').click(function() {
+  // 微信支付按钮事件
+  $('#btn-wechat').click(function() {
   swal({
-    // content 参数可以是一个 DOM 元素，这里我们用 jQuery 动态生成一个 img 标签，并通过 [0] 的方式获取到 DOM 元素
-    content: $('<img src="{{ route('payment.wechat', ['order' => $order->id]) }}" />')[0],
-    // buttons 参数可以设置按钮显示的文案
-    buttons: ['关闭', '已完成付款'],
+  // content 参数可以是一个 DOM 元素，这里我们用 jQuery 动态生成一个 img 标签，并通过 [0] 的方式获取到 DOM 元素
+  content: $('<img src="{{ route('payment.wechat', ['order' => $order->id]) }}" />')[0],
+  // buttons 参数可以设置按钮显示的文案
+  buttons: ['关闭', '已完成付款'],
   })
-    .then(function(result) {
-      // 如果用户点击了 已完成付款 按钮，则重新加载页面
-      if (result) {
-        location.reload();
-      }
-    })
-});
-// 确认收货按钮点击事件
-$('#btn-receive').click(function() {
+  .then(function(result) {
+    // 如果用户点击了 已完成付款 按钮，则重新加载页面
+    if (result) {
+      location.reload();
+    }
+  })
+  });
+  // 确认收货按钮点击事件
+  $('#btn-receive').click(function() {
   // 弹出确认框
   swal({
-    title: "确认已经收到商品？",
-    icon: "warning",
-    dangerMode: true,
-    buttons: ['取消', '确认收到'],
+  title: "确认已经收到商品？",
+  icon: "warning",
+  dangerMode: true,
+  buttons: ['取消', '确认收到'],
   })
-    .then(function(ret) {
-      // 如果点击取消按钮则不做任何操作
-      if (!ret) {
-        return;
-      }
-      // ajax 提交确认操作
-      axios.post('{{ route('orders.received', [$order->id]) }}')
-        .then(function () {
-          // 刷新页面
-          location.reload();
-        })
-    });
-});
-// 退款按钮点击事件
-$('#btn-apply-refund').click(function () {
-  swal({
-    text: '请输入退款理由',
-    content: "input",
-  }).then(function (input) {
-    // 当用户点击 swal 弹出框上的按钮时触发这个函数
-    if(!input) {
-      swal('退款理由不可空', '', 'error');
+  .then(function(ret) {
+    // 如果点击取消按钮则不做任何操作
+    if (!ret) {
       return;
     }
-    // 请求退款接口
-    axios.post('{{ route('orders.apply_refund', [$order->id]) }}', {reason: input})
+    // ajax 提交确认操作
+    axios.post('{{ route('orders.received', [$order->id]) }}')
       .then(function () {
-        swal('申请退款成功', '', 'success').then(function () {
-          // 用户点击弹框上按钮时重新加载页面
-          location.reload();
-        });
-      });
+        // 刷新页面
+        location.reload();
+      })
   });
-});
+  });
+  // 退款按钮点击事件
+  $('#btn-apply-refund').click(function () {
+  swal({
+  text: '请输入退款理由',
+  content: "input",
+  }).then(function (input) {
+  // 当用户点击 swal 弹出框上的按钮时触发这个函数
+  if(!input) {
+    swal('退款理由不可空', '', 'error');
+    return;
+  }
+  // 请求退款接口
+  axios.post('{{ route('orders.apply_refund', [$order->id]) }}', {reason: input})
+    .then(function () {
+      swal('申请退款成功', '', 'success').then(function () {
+        // 用户点击弹框上按钮时重新加载页面
+        location.reload();
+      });
+    });
+  });
+  });
+  // 分期付款按钮点击事件
+  $('#btn-installment').click(function () {
+    // 展示分期弹框
+    $('#installment-modal').modal();
+  });
+
+  // 选择分期期数按钮点击事件
+  $('.btn-select-installment').click(function () {
+    // 调用创建分期付款接口
+    axios.post('{{ route('payment.installment', ['order' => $order->id]) }}', { count: $(this).data('count') })
+      .then(function (response) {
+        console.log(response.data);
+        // todo 跳转到分期付款页面
+      })
+  });
 });
 </script>
 @endsection
