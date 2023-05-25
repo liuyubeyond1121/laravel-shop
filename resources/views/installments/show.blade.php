@@ -86,7 +86,12 @@
                       <span class="needs-repay">待还款</span>
                     @endif
                   @else
-                    <span class="repaid">已还款</span>
+                    <span class="repaid">已还款
+                    @if($item->refund_status == 'success')
+                        <span class="overdue">（已退款）</span>
+{{--                      todo  此处后续可以考虑看看，分期付款没有全部付完的时候，申请退款怎么处理，是退款之后不能继续付款了，还是直接像此处一样显示该期已经退款--}}
+                    @endif
+                    </span>
                   @endif
                 </td>
                 <td>￥{{ $item->base }}</td>
