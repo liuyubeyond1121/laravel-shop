@@ -1,6 +1,61 @@
 <?php
 
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Route;
+
+Route::get('test', function (){
+
+    $client = ClientBuilder::create()
+        ->setHosts(['localhost:9200'])
+        ->build();
+
+// Info API
+//    $response = $client->info();
+
+//    echo $response['version']['number']; // 8.7.0
+//    echo $response->getStatusCode(); // 200
+//    echo $response->getBody(); // Response body in JSON
+//    var_dump($response->asArray());
+//    var_dump($response->asObject());
+//    var_dump($response->asString());
+//    echo $response->version->number; // 8.0.0
+
+//    $params = [
+//        'index' => 'my_index',
+//        'body'  => [ 'testField' => 'abc']
+//    ];
+//
+//    try {
+//        $response = $client->index($params);
+//    } catch (\Elastic\Elasticsearch\Exception\ClientResponseException $e) {
+//        // manage the 4xx error
+//    } catch (\Elastic\Elasticsearch\Exception\ServerResponseException $e) {
+//        // manage the 5xx error
+//    } catch (Exception $e) {
+//        // eg. network error like NoNodeAvailableException
+//    }
+//
+////    print_r($response->asArray());  // response body content as array
+//    return $response->asObject();
+
+
+
+//    $params = [
+//        'index' => 'my_index',
+//        'body'  => [
+//            'query' => [
+//                'match' => [
+//                    'testField' => 'abc'
+//                ]
+//            ]
+//        ]
+//    ];
+//    $response = $client->search($params);
+//    return $response;
+
+//    return $client->get(['index' => 'test_index', 'id' => 2]);// 可以 Tinker中需要加asObject()或者asArray得到想要的数据
+     return app('es')->get(['index' => 'test_index', 'id' => 2]);// 可以
+});
 
 Route::get('/', 'PagesController@root')->name('root');
 
@@ -50,5 +105,3 @@ Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
 
-// 1065634.87
-//1066409.20
