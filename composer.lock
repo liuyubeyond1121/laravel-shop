@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da28926111c3d23fa29f35a77b37c0b7",
+    "content-hash": "7352e2197b5616b45cf725fac9522111",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1547,6 +1547,61 @@
             "time": "2023-04-17T16:11:26+00:00"
         },
         {
+            "name": "joanhey/adapterman",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joanhey/AdapterMan.git",
+                "reference": "0628d42a579ff214abd1114193a09d1f52ae5eb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/joanhey/adapterman/0.6.1/joanhey-adapterman-0.6.1.zip",
+                "reference": "0628d42a579ff214abd1114193a09d1f52ae5eb2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8",
+                "workerman/workerman": "^4.1"
+            },
+            "suggest": {
+                "ext-event": "For better performance. "
+            },
+            "bin": [
+                "adapterman"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Adapterman\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joanhey",
+                    "email": "joanhey@kumbiaphp.com",
+                    "homepage": "https://kumbiaphp.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Use any framework and application with Workerman.",
+            "keywords": [
+                "event",
+                "php",
+                "workerman"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/joanhey",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-04-16T00:05:23+00:00"
+        },
+        {
             "name": "jxlwqq/quill",
             "version": "1.0.2",
             "source": {
@@ -1837,79 +1892,6 @@
                 "laravel"
             ],
             "time": "2022-12-08T15:28:55+00:00"
-        },
-        {
-            "name": "laravel/horizon",
-            "version": "v5.16.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/horizon.git",
-                "reference": "4f762b1bd47b51f0557da84873a208410de9eece"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://mirrors.huaweicloud.com/repository/php/laravel/horizon/v5.16.0/laravel-horizon-v5.16.0.zip",
-                "reference": "4f762b1bd47b51f0557da84873a208410de9eece",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-pcntl": "*",
-                "ext-posix": "*",
-                "illuminate/contracts": "^8.17|^9.0|^10.0",
-                "illuminate/queue": "^8.17|^9.0|^10.0",
-                "illuminate/support": "^8.17|^9.0|^10.0",
-                "nesbot/carbon": "^2.17",
-                "php": "^7.3|^8.0",
-                "ramsey/uuid": "^4.0",
-                "symfony/error-handler": "^5.0|^6.0",
-                "symfony/process": "^5.0|^6.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^6.0|^7.0|^8.0",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9.0",
-                "predis/predis": "^1.1|^2.0"
-            },
-            "suggest": {
-                "ext-redis": "Required to use the Redis PHP driver.",
-                "predis/predis": "Required when not using the Redis PHP driver (^1.1|^2.0)."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Horizon\\HorizonServiceProvider"
-                    ],
-                    "aliases": {
-                        "Horizon": "Laravel\\Horizon\\Horizon"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Horizon\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Dashboard and code-driven configuration for Laravel queues.",
-            "keywords": [
-                "laravel",
-                "queue"
-            ],
-            "time": "2023-05-18T14:11:32+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -6684,6 +6666,61 @@
                 "validate"
             ],
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "workerman/workerman",
+            "version": "v4.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/walkor/workerman.git",
+                "reference": "e967b79f95b9251a72acb971be05623ec1a51e83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/workerman/workerman/v4.1.10/workerman-workerman-v4.1.10.zip",
+                "reference": "e967b79f95b9251a72acb971be05623ec1a51e83",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "suggest": {
+                "ext-event": "For better performance. "
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Workerman\\": "./"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An asynchronous event driven PHP framework for easily building fast, scalable network applications.",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "asynchronous",
+                "event-loop"
+            ],
+            "funding": [
+                {
+                    "url": "https://opencollective.com/workerman",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://www.patreon.com/walkor",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-05-01T02:12:20+00:00"
         },
         {
             "name": "yansongda/pay",
