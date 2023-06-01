@@ -237,6 +237,10 @@ return [
     // 单位秒，秒杀订单的支付有效期通常要比普通订单要短
     // 这里我们将其设为 10 分钟
     'seckill_order_ttl' => 600,
+
+    // 30天自动确认收货
+    'auto_receive_ttl' => 2592000,
+
     'ngrok_url' => env('NGROK_URL'),
     'installment_fee_rate' => [
         3  => 1.5,

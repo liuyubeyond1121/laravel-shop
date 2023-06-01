@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Exceptions\InternalException;
 use App\Http\Requests\Admin\HandleRefundRequest;
+use App\Jobs\AutoReceive;
 use App\Models\CrowdfundingProduct;
 use App\Models\Order;
 use App\Services\OrderService;
@@ -56,6 +57,7 @@ class OrdersController extends AdminController
         return $grid;
     }
 
+
     public function show($id, Content $content)
     {
         return $content
@@ -100,7 +102,7 @@ class OrdersController extends AdminController
             // 因此这里可以直接把数组传过去
             'ship_data'   => $data,
         ]);
-
+        dispatch(new AutoReceive($order,config('app.auto_receive_ttl')));
         // 返回上一页
         return redirect()->back();
     }
