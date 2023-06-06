@@ -67,7 +67,7 @@ class ProjectIndex
                 'filter'   => [
                     'synonym_filter' => [
                         'type'          => 'synonym',
-                        'synonyms_path' => 'analysis/synonyms.txt',
+                        'synonyms' => 'analysis/synonyms.txt',
                     ],
                 ],
             ],
